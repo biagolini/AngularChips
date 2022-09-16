@@ -1,7 +1,8 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface Fruit {
   name: string;
@@ -20,15 +21,45 @@ export class ChipsInputExample {
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
   fruits: Fruit[] = [
     { name: 'Apple' },
     { name: 'Banana' },
     { name: 'Jabuticaba' },
   ];
+  
+  displayedColumns = ['name'];
+
+  sampleControl = new FormControl('');
+
+  randomSample = new MatTableDataSource();
 
   fruitForm = this.form.group({
     fruitName: ['', Validators.required],
   });
+
+
+
+  ngOnInit(): void {
+    this.randomSample.data = [];
+  }
+  
+  sampleOrder(){
+    this.randomSample.data = [];  
+    let n:number= this.fruits.length;
+    let fruitsCopy= [...this.fruits];   
+    for(let i = 0; i<n; i++){ 
+      let nSorteado = Math.floor(Math.random() *  fruitsCopy.length);  
+      this.randomSample.data = [...this.randomSample.data,fruitsCopy[nSorteado]]    
+      fruitsCopy.splice(nSorteado,1)
+      }
+  }
+
+  sampleFruit() {
+    let sorteado = this.fruits[Math.floor(Math.random() *  this.fruits.length)];
+    this.sampleControl.setValue(sorteado.name) 
+  }
+
 
   addNewFruit() {
     this.fruits.push({ name: this.fruitForm.value.fruitName });
