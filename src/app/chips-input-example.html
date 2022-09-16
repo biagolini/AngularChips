@@ -1,4 +1,13 @@
 <div class="full-width fruits-names">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveLocally()"
+    class="full-width"
+  >
+    Save list locally
+  </button>
+
   <mat-form-field class="example-chip-list" appearance="fill">
     <mat-label>Favorite Fruits</mat-label>
     <mat-chip-list #chipList aria-label="Fruit selection">
@@ -16,25 +25,27 @@
     </mat-chip-list>
   </mat-form-field>
 
-  <form [formGroup]="fruitForm">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>New fruit</mat-label>
-      <input formControlName="fruitName" name="fruitName" matInput />
-    </mat-form-field>
-  </form>
+  <div class="row-add-fruits">
+    <form [formGroup]="fruitForm" class="half-width full-height">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>New fruit</mat-label>
+        <input formControlName="fruitName" name="fruitName" matInput />
+      </mat-form-field>
+    </form>
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="addNewFruit()"
-    [disabled]="!fruitForm.valid"
-    class="full-width"
-  >
-    Click to add a new fruit
-  </button>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="addNewFruit()"
+      [disabled]="!fruitForm.valid"
+      class="half-width"
+    >
+      Click to add a new fruit
+    </button>
+  </div>
 </div>
 
-<div class="full-width fruits-sample sample-itens">
+<div class="full-width fruits-sample">
   <button
     mat-raised-button
     color="accent"

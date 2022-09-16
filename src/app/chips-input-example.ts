@@ -54,7 +54,10 @@ export class ChipsInputExample {
       this.randomSample.data = [...this.randomSample.data,fruitsCopy[nSorteado]]    
       fruitsCopy.splice(nSorteado,1)
       }  
-      localStorage.setItem("storedFruits", JSON.stringify(this.fruits)); //store list o fruits
+  }
+
+  saveLocally(){
+    localStorage.setItem("storedFruits", JSON.stringify(this.fruits)); 
   }
 
   

@@ -13,6 +13,19 @@ body {
   width: 100%;
 }
 
+.half-width {
+  width: 50%;
+}
 .fruits-sample {
   margin-top: 5%;
+}
+
+.row-add-fruits {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.full-height {
+  height: 100%;
 }
