@@ -1,4 +1,4 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, V } from '@angular/cdk/keycodes';
 import { Component } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -22,11 +22,7 @@ export class ChipsInputExample {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
-  fruits: Fruit[] = [
-    { name: 'Apple' },
-    { name: 'Banana' },
-    { name: 'Jabuticaba' },
-  ];
+  fruits: Fruit[] = [ ];
   
   displayedColumns = ['name'];
 
@@ -39,10 +35,15 @@ export class ChipsInputExample {
   });
 
 
-
   ngOnInit(): void {
     this.randomSample.data = [];
+    var aux:any = localStorage.getItem("storedFruits");
+    let storeAux = JSON.parse(aux);
+    storeAux.forEach((element: any) => {
+      this.fruits= [...this.fruits,element];  
+    })
   }
+
   
   sampleOrder(){
     this.randomSample.data = [];  
@@ -52,9 +53,11 @@ export class ChipsInputExample {
       let nSorteado = Math.floor(Math.random() *  fruitsCopy.length);  
       this.randomSample.data = [...this.randomSample.data,fruitsCopy[nSorteado]]    
       fruitsCopy.splice(nSorteado,1)
-      }
+      }  
+      localStorage.setItem("storedFruits", JSON.stringify(this.fruits)); //store list o fruits
   }
 
+  
   sampleFruit() {
     let sorteado = this.fruits[Math.floor(Math.random() *  this.fruits.length)];
     this.sampleControl.setValue(sorteado.name) 
